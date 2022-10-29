@@ -25,12 +25,12 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_WEBAPP_URL: ${NEXT_PUBLIC_WEBAPP_URL}
-        NEXT_PUBLIC_LICENSE_CONSENT: ${NEXT_PUBLIC_LICENSE_CONSENT}
-        CALCOM_TELEMETRY_DISABLED: ${CALCOM_TELEMETRY_DISABLED}
-        NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
-        CALENDSO_ENCRYPTION_KEY: ${CALENDSO_ENCRYPTION_KEY}
-        DATABASE_URL: ${DATABASE_URL}
+        NEXT_PUBLIC_WEBAPP_URL: http://localhost:3000
+        NEXT_PUBLIC_LICENSE_CONSENT: agree
+        CALCOM_TELEMETRY_DISABLED: 1
+        NEXTAUTH_SECRET: lKSPxahnQ7e0i0UPJTSlcjcG6CYS2A5/J5gnvHhbWXE
+        CALENDSO_ENCRYPTION_KEY: 2a$12$EUVBmqtHf5HbjqYBiBFhW.E8hbBDqxtLuAPjIRUKM4lgpy2I8mpKm
+        DATABASE_URL: postgresql://controversial:0vIvNrbh7in%2NOghgSc9enTdMo0@database:5432/calendso
       network: stack
     restart: always
     networks:
@@ -39,25 +39,25 @@ services:
       - 3000:3000
     env_file: .env
     environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DATABASE_HOST}/${POSTGRES_DB}
+      - DATABASE_URL=postgresql://controversial:0vIvNrbh7in%2NOghgSc9enTdMo0@database:5432/calendso
     depends_on:
       - database
 
 # Optional use of Prisma Studio. In production, comment out or remove the section below to prevent unwanted access to your database.
-  studio:
-    image: calendso/calendso:latest
-    restart: always
-    networks:
-      - stack
-    ports:
-      - 5555:5555
-    env_file: .env
-    environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DATABASE_HOST}/${POSTGRES_DB}
-    depends_on:
-      - database
-    command:
-      - npx
-      - prisma
-      - studio
+#  studio:
+#    image: calendso/calendso:latest
+#    restart: always
+#    networks:
+#      - stack
+#    ports:
+#      - 5555:5555
+#    env_file: .env
+#    environment:
+#      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DATABASE_HOST}/${POSTGRES_DB}
+#    depends_on:
+#      - database
+#    command:
+#      - npx
+#      - prisma
+#      - studio
 # END SECTION: Optional use of Prisma Studio.
